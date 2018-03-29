@@ -156,7 +156,7 @@ int count_vertices()
   reset_buffer();
 
   while (next_line(line)==0) {
-    ptr = strstr(line,"node [");
+    ptr = strstr(line,"node");
     if (ptr!=NULL) {
       ptr = strstr(line,"label");
       if (ptr==NULL) result++;
@@ -281,7 +281,7 @@ int find_vertex(int id, NETWORK *network)
 
   return -1;
 }
-    
+
 
 // Function to determine the degrees of all the vertices by going through
 // the edge data
