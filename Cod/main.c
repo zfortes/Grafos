@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "readgml.h"
 #include "network.h"
+#include "arvore.h"
 #include <time.h>
 
 /*################ LISTAS ################*/
@@ -19,7 +20,7 @@ typedef struct list{
 
 
 
-/*################# Arvores ###############*/
+/*################# Arvores ###############/
 typedef struct tree{
     struct tree *left;
     struct tree *right;
@@ -71,51 +72,10 @@ void inserirLista(t_list *lista, NETWORK* network){
 
 }
 
-void insereArvoreOrdenada(e_tree *folhaInserir, e_tree *folha){
-    if (folhaInserir->degree >= folha->degree){
-        if (folha->left == NULL){
-            folha->left = folhaInserir;
-            return ;
-        }
-        insereArvoreOrdenada(folhaInserir, folha->left);
-        return ;
-    }
-    if (folha->right == NULL){
-        folha->right = folhaInserir;
-        return ;
-    }
-    insereArvoreOrdenada(folhaInserir, folha->right);
-    return ;
-}
 
-e_tree* alocaFolha(){
-    e_tree *folha = (e_tree *) malloc(sizeof(e_tree));
-    folha->left = NULL;
-    folha->right = NULL;
-    return folha;
-}
 
-t_tree* criarArvoreOrganizada(NETWORK *network){
-    int i=0;
-    t_tree *arvore = (t_tree *) malloc(sizeof(t_tree));
 
-    e_tree *aux = NULL;
-    arvore->folha_inicial = alocaFolha();
-    arvore->folha_inicial->id = network->vertex[i].id;
-    arvore->folha_inicial->degree = network->vertex[i].degree;
-    i++;
-
-    while (i < network->nvertices){
-        aux = alocaFolha();
-        aux->id = network->vertex[i].id;
-        aux->degree = network->vertex[i].degree;
-        insereArvoreOrdenada(aux, arvore->folha_inicial);
-        i++;
-    }
-    return arvore;
-}
-
-//Le o grafo do arquivo e o salva em memoria
+/*Le o grafo do arquivo e o salva em memoria*/
 int ler(NETWORK *network){
 	char aux;
 	int i=0, j=0;
@@ -136,32 +96,6 @@ int ler(NETWORK *network){
 
     fclose(rest);
 	return 0;
-}
-
-/*Funcao recursiva que imprime a arvore*/
-void printArvoreRecursivo(e_tree *folha){
-    if (folha != NULL){
-        printArvoreRecursivo(folha->left);
-
-        /*Paroniza os espaços para que a interface fique simetrica*/
-        if (folha->id < 10){
-            printf("ID = 0%d |", folha->id);
-        }else{
-            printf("ID = %d |", folha->id);
-        }
-        if (folha->degree < 10){
-            printf("GRAU = 0%d |\n", folha->degree);
-        }else{
-            printf("GRAU = %d |\n", folha->degree);
-        }
-        
-        printArvoreRecursivo(folha->right);
-    }
-    return;
-}
-
-void printArvore(t_tree *arvore){
-    printArvoreRecursivo(arvore->folha_inicial);
 }
 
 
