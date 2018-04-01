@@ -65,16 +65,16 @@ int fill_buffer(FILE *stream)
     return 1;
   }
   length = strlen(line) + 1;
-  first = malloc(sizeof(LINE));
-  first->str = malloc(length*sizeof(char));
+  first = (LINE *) malloc(sizeof(LINE));
+  first->str = (char *) malloc(length*sizeof(char));
   strcpy(first->str,line);
 
   previous = first;
   while (read_line(stream,line)==0) {
     length = strlen(line) + 1;
-    previous->ptr = malloc(sizeof(LINE));
+    previous->ptr = (LINE *) malloc(sizeof(LINE));
     previous = previous->ptr;
-    previous->str = malloc(length*sizeof(char));
+    previous->str = (char *) malloc(length*sizeof(char));
     strcpy(previous->str,line);
   }
   previous->ptr = NULL;          // Indicates last line
@@ -199,7 +199,7 @@ void create_network(NETWORK *network)
 
   // Make space for the vertices
 
-  network->vertex = calloc(network->nvertices,sizeof(VERTEX));
+  network->vertex = (VERTEX *) calloc(network->nvertices,sizeof(VERTEX));
 
   // Go through the file reading the details of each vertex one by one
 
