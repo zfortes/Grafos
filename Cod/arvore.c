@@ -34,7 +34,6 @@ void printArvore(t_tree *arvore){
     printArvoreRecursivo(arvore->folha_inicial);
 }
 
-
 /*Funcao recursiva que procura e insere a folha no seu lugar adequado na arvore
 *Primeiro ela verifica se o grau é menor ou maior, se for maior, ele verifica
 *se ainda pode andar mais na arvore para o lado esquerdo e, em caso negatio, ele insere a folha na arvore.
@@ -84,4 +83,20 @@ t_tree* criarArvoreOrganizada(NETWORK *network){
         i++;
     }
     return arvore;
+}
+
+/*Funcao que percorre a arvore desalocando todas as folhas no percurso*/
+void desalocaFolha(e_tree *folha){
+    if (folha != NULL){
+        desalocaFolha(folha->left);
+        free(folha);
+        desalocaFolha(folha->right);
+    }
+    return;
+}
+
+/*Funcao que desaloca a arvore*/
+void desalocaArvore(t_tree *arvore){
+    desalocaFolha(arvore->folha_inicial);
+    free(arvore);
 }

@@ -18,5 +18,7 @@ void insereArvoreOrdenada(e_tree *folhaInserir, e_tree *folha);
 void printArvore(t_tree *arvore);
 e_tree* alocaFolha();
 t_tree* criarArvoreOrganizada(NETWORK *network);
+void desalocaFolha(e_tree *folha);
+void desalocaArvore(t_tree *arvore);
 
 #endif

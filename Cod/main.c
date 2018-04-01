@@ -116,6 +116,8 @@ int main(){
 
     printArvore(arvore);
 
+    desalocaArvore(arvore);
+
    /*
    e_list *percorre = lista->primeiro;
    printf("passou\n" );
