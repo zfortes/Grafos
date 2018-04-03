@@ -55,6 +55,7 @@ void insereArvoreOrdenada(e_tree *folhaInserir, e_tree *folha){
     return ;
 }
 
+
 /*Aloca uma folha e retorna o endereco dela*/
 e_tree* alocaFolha(){
     e_tree *folha = (e_tree *) malloc(sizeof(e_tree));
